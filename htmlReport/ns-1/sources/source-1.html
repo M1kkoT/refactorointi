@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > KiviPaperiSakset</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">kivipaperisakset</a>
+</div>
+
+<h1>Coverage Summary for Class: KiviPaperiSakset (kivipaperisakset)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KiviPaperiSakset</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (31/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package kivipaperisakset;
+&nbsp;
+&nbsp;/**
+&nbsp; * Luokka pelaamaan yhden kierroksen kivi, sakset paperia
+&nbsp; * @Author Mikko Tanhola
+&nbsp; */
+&nbsp;public class KiviPaperiSakset {
+&nbsp;
+&nbsp;    private Pelaaja[] pelaajat;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public KiviPaperiSakset(Pelaaja[] pelaajat){</b>
+<b class="fc">&nbsp;        this.pelaajat = pelaajat;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * hoitaa yhden kierroksen tulostukset ja pelaajien pelaamisen
+&nbsp;     * @Return boolean true jos tasapeli, false jos ei
+&nbsp;     */
+&nbsp;    public boolean PlaykiviPaperiSakset(){
+<b class="fc">&nbsp;        System.out.println(&quot;Pelaaja 1:llä koossa &quot; + pelaajat[0].getVoitot() + &quot; voittoa.&quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Pelaaja 2:lla koossa &quot; + pelaajat[1].getVoitot() + &quot; voittoa.&quot;);</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        String p1 = pelaajat[0].pelaajanValinta();</b>
+<b class="fc">&nbsp;        String p2 = pelaajat[1].pelaajanValinta();</b>
+&nbsp;
+<b class="fc">&nbsp;        System.out.println(&quot;Pelaaja 1: &quot; + p1);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;Pelaaja 2: &quot; + p2);</b>
+&nbsp;
+<b class="fc">&nbsp;        return kumpiVoittaa(p1, p2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * katsoo kumpi pelaajista voittaa kierroksen
+&nbsp;     * @param pelaaja1 pelaajan 1 pelaama käsi
+&nbsp;     * @param pelaaja2 pejaajan 2 pelaama käsi
+&nbsp;     */
+&nbsp;    public boolean kumpiVoittaa(String pelaaja1, String pelaaja2){
+<b class="fc">&nbsp;        boolean tasuri = false;</b>
+<b class="fc">&nbsp;        if(pelaaja1.equals(pelaaja2)){</b>
+<b class="fc">&nbsp;            tasuri = true;</b>
+<b class="fc">&nbsp;            System.out.println(&quot;\nTasapeli \n&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(pelaaja1.equals(&quot;kivi&quot;)){</b>
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;sakset&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(0);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;paperi&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(1);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(pelaaja1.equals(&quot;paperi&quot;)){</b>
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;kivi&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(0);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;sakset&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(1);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        if(pelaaja1.equals(&quot;sakset&quot;)){</b>
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;paperi&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(0);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            if(pelaaja2.equals(&quot;kivi&quot;)){</b>
+<b class="fc">&nbsp;                addVoitto(1);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return tasuri;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * lisää voiton pelaajalle ja tulostaa voittajan
+&nbsp;     * @param pelaaja pelaaja joka voitti kierroksen
+&nbsp;     */
+&nbsp;    public void addVoitto(int pelaaja){
+<b class="fc">&nbsp;        System.out.println(&quot;\npelaaja &quot; + (pelaaja + 1) + &quot; voittaa\n&quot;);</b>
+<b class="fc">&nbsp;        pelaajat[pelaaja].addVoitto();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-04 18:41</div>
+</div>
+</body>
+</html>

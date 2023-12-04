@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Pelimoottori</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">kivipaperisakset</a>
+</div>
+
+<h1>Coverage Summary for Class: Pelimoottori (kivipaperisakset)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Pelimoottori</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97%
+  </span>
+  <span class="absValue">
+    (32/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package kivipaperisakset;
+&nbsp;
+&nbsp;/**
+&nbsp; * suorittaa kivi, paperi, sakset peliä
+&nbsp; * @Author Mikko Tanhola
+&nbsp; */
+&nbsp;public class Pelimoottori {
+&nbsp;    private Pelaaja[] pelaajat; //lista pelaajista
+&nbsp;    private int voittoMaara; //määrittää tarvittavan voittojen määrän pelin voittamiseksi
+&nbsp;
+<b class="fc">&nbsp;    private int pelatutKierrokset = 0; //pelattujen kierrosten lukumäärä</b>
+&nbsp;
+<b class="fc">&nbsp;    private int tasapelit = 0;</b>
+<b class="fc">&nbsp;    private boolean endGame = false;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * konstruktori
+&nbsp;     * @param voittoMaara vaadittu määrä voittoja pelin voittamiseksi
+&nbsp;     */
+<b class="fc">&nbsp;    public Pelimoottori(int voittoMaara){</b>
+<b class="fc">&nbsp;        pelaajat = new Pelaaja[2];</b>
+<b class="fc">&nbsp;        pelaajat[0] = new Pelaaja();</b>
+<b class="fc">&nbsp;        pelaajat[1] = new Pelaaja();</b>
+<b class="fc">&nbsp;        this.voittoMaara = voittoMaara;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * kutsu tätä metodia pelataksesi peliä
+&nbsp;     * metodi pelaa kierros kerrallaan kivi, paperi, sakset peliä, kunnes toinen pelaaja saavuttaa vaaditun voittomäärän
+&nbsp;     */
+&nbsp;    public void playGame(){
+<b class="fc">&nbsp;        KiviPaperiSakset peli = new KiviPaperiSakset(pelaajat);</b>
+&nbsp;
+<b class="fc">&nbsp;        while(!endGame){</b>
+<b class="fc">&nbsp;            int isWinner = checkIfWinner();</b>
+<b class="fc">&nbsp;            if(isWinner &gt;= 0){</b>
+<b class="fc">&nbsp;                endGame = true;</b>
+<b class="fc">&nbsp;                System.out.println(voittoMaara + &quot; VOITTOA - PELI PÄÄTTYY, voittaja on pelaaja &quot; + (isWinner + 1));</b>
+<b class="fc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            System.out.println(&quot;Erä: &quot; +(pelatutKierrokset + 1)+ &quot; =====================\n&quot;);</b>
+<b class="fc">&nbsp;            System.out.println(&quot;Tasapelien lukumäärä: &quot; + tasapelit + &quot;\n&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;            boolean tasuri = peli.PlaykiviPaperiSakset();</b>
+<b class="fc">&nbsp;            if(tasuri){</b>
+<b class="fc">&nbsp;                tasapelit++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            pelatutKierrokset++;</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * katsoo onko joku pelaajista saavuttanut vaaditun määrän voittoja
+&nbsp;     * @return -1 jos ei ole, pelaajan indexi pelaajat listassa jos on
+&nbsp;     */
+&nbsp;    public int checkIfWinner(){
+<b class="fc">&nbsp;        for(int i = 0; i &lt; pelaajat.length; i++){</b>
+<b class="fc">&nbsp;            if(pelaajat[i].getVoitot() &gt;= voittoMaara){</b>
+<b class="fc">&nbsp;                return i;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * sets the amount of wins needed for a game win
+&nbsp;     * @param i amount of wins
+&nbsp;     */
+&nbsp;    public void setVoittoMaara(int i){
+<b class="fc">&nbsp;        this.voittoMaara = i;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * method for clearing game&#39;s stats
+&nbsp;     */
+&nbsp;    public void clearStats(){
+<b class="fc">&nbsp;        this.pelatutKierrokset = 0;</b>
+<b class="fc">&nbsp;        this.endGame = false;</b>
+<b class="fc">&nbsp;        this.tasapelit = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Pelaaja[] getPelaajat(){
+<b class="fc">&nbsp;        return pelaajat;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getPelatutKierrokset() {
+<b class="fc">&nbsp;        return pelatutKierrokset;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getTasapelit() {
+<b class="nc">&nbsp;        return tasapelit;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-04 18:41</div>
+</div>
+</body>
+</html>
